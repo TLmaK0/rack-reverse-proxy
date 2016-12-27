@@ -206,6 +206,8 @@ module RackReverseProxy
       return https_redirect if need_https_redirect?
 
       setup_request
+      global_options[:intercept_request].call(target_request, env) if global_options[:intercept_request]
+
       setup_response_headers
 
       transform_response(rack_response)
